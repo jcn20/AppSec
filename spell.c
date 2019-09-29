@@ -17,6 +17,7 @@
 bool check_word(const char* word, hashmap_t hashtable[]) {
     int word_length = strlen(word);
     char lower_word[LENGTH+1];
+    char* lower_word;
 
     // Convert word to lowercase to accurately compare to hash table.
     for (int i = 0; i < word_length; i++)
@@ -25,7 +26,6 @@ bool check_word(const char* word, hashmap_t hashtable[]) {
         if(isupper(word[i]))
         {
             lower_word[i] = tolower(word[i]) ;
-            word[i] = tolower(word[i]);
         }
             // Otherwise it's already lowercase or it's not a letter.
         else
@@ -87,9 +87,9 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
 
 
         // Use strcopy to make new_node->word equal to the buffer.
-        strcpy(new_node->word, word_buffer);
+        strcpy(new_node->lower_word, word_buffer);
 
-        int bucket = hash_function(new_node->word);
+        int bucket = hash_function(new_node->lower_word);
 
         if (hashtable[bucket] == NULL)
         {
