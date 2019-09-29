@@ -15,46 +15,46 @@
 #include "dictionary.h"
 
 bool check_word(const char* word, hashmap_t hashtable[]) {
-        int word_length = strlen(word);
-        char lower_word[LENGTH+1];
+    int word_length = strlen(word);
+    char lower_word[LENGTH+1];
 
-        // Convert word to lowercase to accurately compare to hash table.
-        for (int i = 0; i < word_length; i++)
+    // Convert word to lowercase to accurately compare to hash table.
+    for (int i = 0; i < word_length; i++)
+    {
+        // If character is uppercase, make it lowercase.
+        if(isupper(word[i]))
         {
-            // If character is uppercase, make it lowercase.
-            if(isupper(word[i]))
-            {
-                lower_word[i] = tolower(word[i]) ;
-            }
-                // Otherwise it's already lowercase or it's not a letter.
-            else
-            {
-                lower_word[i] = word[i];
-            }
+            lower_word[i] = tolower(word[i]) ;
         }
-        // Add null character to end of char array.
-        lower_word[word_length] = '\0';
-        // Use hash function to find correct "bucket" to place word.
-        int bucket = hash_function(lower_word);
-        // Set cursor to first node in bucket.
-        node* cursor = hashtable[bucket];
-        // Until the end of the linked list is reached (cursor == NULL),
-        // compare each word stored in each node to lower_word.  If they're
-        // the same, then the word is in the dictionary and is not mispelled.
-        // Otherwise, it is spelled incorrectly.
-        while (cursor != NULL)
+            // Otherwise it's already lowercase or it's not a letter.
+        else
         {
-            if (strcmp(lower_word, cursor->word) == 0)
-            {
-                // If lowercase'd word is the same as another in the bucket,
-                // it's a match and return true.
-                return true;
-            }
-            cursor = cursor->next;
+            lower_word[i] = word[i];
         }
-
-        return false;
     }
+    // Add null character to end of char array.
+    lower_word[word_length] = '\0';
+    // Use hash function to find correct "bucket" to place word.
+    int bucket = hash_function(lower_word);
+    // Set cursor to first node in bucket.
+    node* cursor = hashtable[bucket];
+    // Until the end of the linked list is reached (cursor == NULL),
+    // compare each word stored in each node to lower_word.  If they're
+    // the same, then the word is in the dictionary and is not mispelled.
+    // Otherwise, it is spelled incorrectly.
+    while (cursor != NULL)
+    {
+        if (strcmp(lower_word, cursor->word) == 0)
+        {
+            // If lowercase'd word is the same as another in the bucket,
+            // it's a match and return true.
+            return true;
+        }
+        cursor = cursor->next;
+    }
+
+    return false;
+}
 
 
 
@@ -76,13 +76,16 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
     char word_buffer[LENGTH+1]; // Gonna need a buffer when we loop the file. Not in the pseudocode.
     // Might not need it but will use it for now and see how it works.
 
-    while (fscanf(dict, "%s", word_buffer) > 0) // While we're not at the EOF.
+    while (fscanf(dict, "%45s", word_buffer) > 0) // While we're not at the EOF.
     {
         // Create new_node, allocate the memory to keep the code safe and not to break it.
         node* new_node = malloc(sizeof(node)); // Needs the same amount of memory - can't create a new node otherwise. Might break.
 
         // Set new_node's next to NULL
         new_node->next = NULL;
+
+        // Change the words in the dictionary to be lower case.
+        word = tolower(word);
 
         // Use strcopy to make new_node->word equal to the buffer.
         strcpy(new_node->word, word_buffer);
@@ -116,7 +119,7 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
 
     if(fp == NULL){
         // Exit the program if a file isn't read in or it has nothing.
-        exit(1);
+        return 0;
     }
 
     while (fscanf(fp, "%s", word_buffer) > 0) {
@@ -139,11 +142,10 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
             for (int i = 0; i < MAX_MISSPELLED; i++) {
                 misspelled[i] = malloc(strlen(word_buffer) + 1);
                 misspelled[i] = strcpy(misspelled[i], word_buffer);
-                printf("%d ", misspelled[i]);
                 num_misspelled++;
             }
         }
     }
-        return num_misspelled;
-    }
+    return num_misspelled;
+}
 
