@@ -84,11 +84,18 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
         // Set new_node's next to NULL
         new_node->next = NULL;
 
+        // Lower-case all the words that are read in.
+        str_length = strlen(word_buffer);
+        for(int i = 0; i < str_length; i++){
+            word_buffer[i] = tolower(word_buffer[i]);
+        }
 
         // Use strcopy to make new_node->word equal to the buffer.
-        strcpy(new_node->tolower(word), word_buffer);
+        strcpy(new_node->word, word_buffer);
 
-        int bucket = hash_function(new_node->tolower(word));
+
+
+        int bucket = hash_function(new_node->word);
 
         if (hashtable[bucket] == NULL)
         {
@@ -127,6 +134,8 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
 
         strcpy(new_node->word, word_buffer);
 
+
+
         if (ispunct(word_buffer[0])) {
             memmove(word_buffer, word_buffer + 1, strlen(word_buffer));
         }
@@ -137,10 +146,8 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
 
 
         if (check_word(word_buffer, hashtable) == false) {
-            for (int i = 0; i < MAX_MISSPELLED; i++) {
-                misspelled[i] = malloc(strlen(word_buffer) + 1);
-                misspelled[i] = strcpy(misspelled[i], word_buffer);
-                num_misspelled++;
+            num_misspelled++;
+            misspelled[num_misspelled] = word_buffer;
             }
         }
     }
