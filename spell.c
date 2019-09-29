@@ -85,7 +85,7 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
         new_node->next = NULL;
 
         // Lower-case all the words that are read in.
-        str_length = strlen(word_buffer);
+        int str_length = strlen(word_buffer);
         for(int i = 0; i < str_length; i++){
             word_buffer[i] = tolower(word_buffer[i]);
         }
