@@ -6,13 +6,13 @@
 #define TESTDICT "test_worlist.txt"
 
 START_TEST(test_dictionary_normal)
-{
-    hashmap_t hashtable[HASH_SIZE];
-    ck_assert(load_dictionary(TESTDICT, hashtable));
-    // Here we can test if certain words ended up in certain buckets
-    // to ensure that our load_dictionary works as intended. I leave
-    // this as an exercise.
-}
+        {
+                hashmap_t hashtable[HASH_SIZE];
+        ck_assert(load_dictionary(TESTDICT, hashtable));
+                // Here we can test if certain words ended up in certain buckets
+                // to ensure that our load_dictionary works as intended. I leave
+                // this as an exercise.
+        }
 END_TEST
 
 START_TEST(test_check_word_normal)
@@ -36,7 +36,6 @@ START_TEST(test_check_words_normal)
     expected[1] = "skyn";
     expected[2] = "betta";
     char *misspelled[MAX_MISSPELLED];
-    printf("\n");
     FILE *fp = fopen("test1.txt", "r");
     int num_misspelled = check_words(fp, hashtable, misspelled);
     ck_assert(num_misspelled == 3);
@@ -50,7 +49,7 @@ START_TEST(test_check_words_normal)
 }
 END_TEST
 
-Suite *
+        Suite *
 check_word_suite(void)
 {
     Suite * suite;
@@ -64,20 +63,17 @@ check_word_suite(void)
     return suite;
 }
 
-
+int
 main(void)
 {
     int failed;
     Suite *suite;
     SRunner *runner;
-    
+
     suite = check_word_suite();
     runner = srunner_create(suite);
     srunner_run_all(runner, CK_NORMAL);
     failed = srunner_ntests_failed(runner);
     srunner_free(runner);
-    printf("\n");
     return (failed == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
-
 }
-
