@@ -150,7 +150,6 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
             misspelled[num_misspelled] = word_buffer;
             }
         }
-    }
     return num_misspelled;
 }
 
