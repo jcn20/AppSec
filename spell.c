@@ -144,8 +144,8 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
 
 
         if (check_word(word_buffer, hashtable) == false) {
-            num_misspelled++;
             misspelled[num_misspelled] = word_buffer;
+            num_misspelled++;
             }
         }
     return num_misspelled;
