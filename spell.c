@@ -25,6 +25,7 @@ bool check_word(const char* word, hashmap_t hashtable[]) {
         if(isupper(word[i]))
         {
             lower_word[i] = tolower(word[i]) ;
+            word[i] = tolower(word[i]);
         }
             // Otherwise it's already lowercase or it's not a letter.
         else
@@ -52,7 +53,6 @@ bool check_word(const char* word, hashmap_t hashtable[]) {
         }
         cursor = cursor->next;
     }
-    word = tolower(word);
 
     return false;
 }
