@@ -122,7 +122,7 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
         return 0;
     }
 
-    while (fscanf(fp, "%s", word_buffer) > 0) {
+    while (fscanf(fp, "%45s", word_buffer) > 0) {
         node* new_node = malloc(sizeof(node));
 
         new_node->next = NULL;
