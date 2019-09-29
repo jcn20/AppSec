@@ -107,8 +107,6 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
             hashtable[bucket] = new_node;
         }
     }
-
-
     fclose(dict);
     return true; // To return a value to the function.
 }
