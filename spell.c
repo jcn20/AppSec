@@ -148,9 +148,6 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
             num_misspelled++;
             }
         }
-    for(int i = 0; i < MAX_MISSPELLED; i++){
-        printf("%d\n", misspelled[MAX_MISSPELLED][i]);
-    }
     return num_misspelled;
 }
 
