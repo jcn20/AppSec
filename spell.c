@@ -52,6 +52,7 @@ bool check_word(const char* word, hashmap_t hashtable[]) {
         }
         cursor = cursor->next;
     }
+    word = tolower(word);
 
     return false;
 }
@@ -84,8 +85,6 @@ bool load_dictionary(const char* dictionary_file, hashmap_t hashtable[]){
         // Set new_node's next to NULL
         new_node->next = NULL;
 
-        // Change the words in the dictionary to be lower case.
-        word = tolower(word);
 
         // Use strcopy to make new_node->word equal to the buffer.
         strcpy(new_node->word, word_buffer);
