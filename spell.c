@@ -143,6 +143,8 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
         }
 
 
+
+
         if (check_word(word_buffer, hashtable) == false) {
             misspelled[num_misspelled] = malloc(strlen(word_buffer) + 1);
             misspelled[num_misspelled] = strcpy(misspelled[num_misspelled], word_buffer);
