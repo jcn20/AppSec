@@ -143,13 +143,13 @@ int check_words(FILE* fp, hashmap_t hashtable[], char* misspelled[]){
         }
 
 
-        for(int i=0; i < strlen(word_buffer); i++){
-            if(ispunct(word_buffer[i])){
-                misspelled[num_misspelled] = malloc(strlen(word_buffer) + 1);
-                misspelled[num_misspelled] = strcpy(misspelled[num_misspelled], word_buffer);
-                num_misspelled++;
-            }
-        }
+//        for(int i=0; i < strlen(word_buffer); i++){
+//            if(ispunct(word_buffer[i])){
+//                misspelled[num_misspelled] = malloc(strlen(word_buffer) + 1);
+//                misspelled[num_misspelled] = strcpy(misspelled[num_misspelled], word_buffer);
+//                num_misspelled++;
+//            }
+//        }
 
 
 
